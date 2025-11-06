@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/ibm-ibm-cos-mcp-server-badge.png)](https://mseep.ai/app/ibm-ibm-cos-mcp-server)
+
 # IBM Cloud Object Storage MCP Server
 
 [![npm version](https://badge.fury.io/js/%40kirtijha%2Fibm-cos-mcp-server.svg)](https://www.npmjs.com/package/@kirtijha/ibm-cos-mcp-server)
