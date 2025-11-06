@@ -1,6 +1,14 @@
 # IBM Cloud Object Storage MCP Server
 
+[![npm version](https://badge.fury.io/js/%40kirtijha%2Fibm-cos-mcp-server.svg)](https://www.npmjs.com/package/@kirtijha/ibm-cos-mcp-server)
+[![npm downloads](https://img.shields.io/npm/dm/@kirtijha/ibm-cos-mcp-server.svg)](https://www.npmjs.com/package/@kirtijha/ibm-cos-mcp-server)
+
 A comprehensive, production-ready Model Context Protocol (MCP) server for IBM Cloud Object Storage. This server provides complete S3-compatible API access to IBM COS with 37 comprehensive tools covering all aspects of object storage management.
+
+## 🔗 Links
+
+- **GitHub**: [https://github.ibm.com/kirtijha/ibm-cos-mcp-server](https://github.ibm.com/kirtijha/ibm-cos-mcp-server)
+- **NPM**: [https://www.npmjs.com/package/@kirtijha/ibm-cos-mcp-server](https://www.npmjs.com/package/@kirtijha/ibm-cos-mcp-server)
 
 ## Features
 
@@ -14,10 +22,8 @@ A comprehensive, production-ready Model Context Protocol (MCP) server for IBM Cl
 - **CORS Configuration**: Enable cross-origin resource sharing
 - **Access Control**: Manage bucket and object ACLs
 - **Tagging**: Organize resources with key-value tags
-- **CORS Configuration**: Enable cross-origin resource sharing
 - **Website Hosting**: Configure static website hosting
-- **Object Lock**: Immutable object storage for compliance
-- **Encryption**: Server-side encryption with IBM Key Protect or SSE-C
+- **Encryption**: Server-side encryption with IBM Key Protect
 
 ### 🔐 Flexible Authentication
 
@@ -38,14 +44,105 @@ A comprehensive, production-ready Model Context Protocol (MCP) server for IBM Cl
 - Streaming support for large objects
 - Automatic pagination for list operations
 - Full TypeScript type safety
+- Dual mode: stdio + HTTP for orchestration platforms
 
-## Installation
+## 📦 Installation
 
-```bash
-npm install @kirtijha/ibm-cos-mcp-server
+### Using npx (Recommended - No Installation Required)
+
+The easiest way to use the server is with `npx`:
+
+```json
+{
+  "mcpServers": {
+    "ibm-cos": {
+      "command": "npx",
+      "args": ["-y", "@kirtijha/ibm-cos-mcp-server"],
+      "env": {
+        "IBM_COS_API_KEY": "your-api-key",
+        "IBM_COS_SERVICE_INSTANCE_ID": "your-instance-id",
+        "IBM_COS_ENDPOINT": "s3.us-south.cloud-object-storage.appdomain.cloud",
+        "IBM_COS_REGION": "us-south"
+      }
+    }
+  }
+}
 ```
 
+### Global Installation
+
+```bash
+npm install -g @kirtijha/ibm-cos-mcp-server
+```
+
+Then configure:
+
+```json
+{
+  "mcpServers": {
+    "ibm-cos": {
+      "command": "ibm-cos-mcp-server",
+      "env": {
+        "IBM_COS_API_KEY": "your-api-key",
+        "IBM_COS_SERVICE_INSTANCE_ID": "your-instance-id",
+        "IBM_COS_ENDPOINT": "s3.us-south.cloud-object-storage.appdomain.cloud",
+        "IBM_COS_REGION": "us-south"
+      }
+    }
+  }
+}
+```
+
+### HTTP Server Mode
+
+Run as a standalone HTTP server for remote access or orchestration platforms:
+
+```bash
+# Set environment variables
+export IBM_COS_API_KEY="your-api-key"
+export IBM_COS_SERVICE_INSTANCE_ID="your-instance-id"
+export IBM_COS_ENDPOINT="s3.us-south.cloud-object-storage.appdomain.cloud"
+export IBM_COS_REGION="us-south"
+export MCP_API_KEY="your-secure-api-key"
+export PORT=3000
+
+# Using npx
+npx -y @kirtijha/ibm-cos-mcp-server --http
+
+# Or if installed globally
+ibm-cos-mcp-http
+```
+
+The server will be available at:
+- **MCP endpoint**: `http://localhost:3000/mcp`
+- **Tools list**: `http://localhost:3000/tools`
+- **Health check**: `http://localhost:3000/health`
+
+### Local Development
+
+For contributing or local development:
+
+```bash
+# Clone the repository
+git clone https://github.ibm.com/kirtijha/ibm-cos-mcp-server.git
+cd ibm-cos-mcp-server
+
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+```
+
+## 🔑 Getting Your Credentials
+
+1. **Service Instance ID**: Found in your COS instance details in IBM Cloud Console
+2. **IAM API Key**: Create in IBM Cloud Console → Manage → Access (IAM) → API Keys
+3. **HMAC Credentials** (alternative): Create in COS instance → Service Credentials → New Credential (with HMAC enabled)
+
 ## Configuration
+
+### Environment Variables
 
 Create a `.env` file in your project root:
 
@@ -64,12 +161,6 @@ IBM_COS_API_KEY=your-ibm-cloud-api-key
 IBM_COS_ENDPOINT=s3.us-south.cloud-object-storage.appdomain.cloud
 IBM_COS_REGION=us-south
 ```
-
-### Getting Your Credentials
-
-1. **Service Instance ID**: Found in your COS instance details in IBM Cloud Console
-2. **IAM API Key**: Create in IBM Cloud Console → Manage → Access (IAM) → API Keys
-3. **HMAC Credentials**: Create in COS instance → Service Credentials → New Credential (with HMAC enabled)
 
 ## Usage
 
